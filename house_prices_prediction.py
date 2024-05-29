@@ -1,21 +1,17 @@
 import pandas as pd
 import tensorflow as tf
 
+""" Data Preparation. """
 data = pd.read_csv("train.csv", index_col=0)
 
-#print(data.describe())
-
-""" Data Preparation. """
 FEATURES = ["LotArea", "YearBuilt", "1stFlrSF", "2ndFlrSF", "GarageCars"]
 y = data.SalePrice
 X = data[FEATURES]
 
-INPUT_SHAPE = 5 # number of features we're training with
-
 
 """ Modeling """
 model = tf.keras.Sequential([
-    tf.keras.layers.Dense(20, activation="relu", input_shape=[INPUT_SHAPE]), # Neural network with 20 neurons
+    tf.keras.layers.Dense(20, activation="relu", input_shape=[len(FEATURES)]), # Neural network with 20 neurons
     tf.keras.layers.Dense(52, activation="relu"), # Neural network with 52 neurons
     tf.keras.layers.Dense(1)
 ])
